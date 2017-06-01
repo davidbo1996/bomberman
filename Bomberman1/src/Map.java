@@ -178,12 +178,22 @@ public class Map {
 				StdDraw.filledCircle(x, y, 0.40);
 				break;
 			case CB_FLAMME_BLEUE: 
-				StdDraw.picture(x, y, "img/Bonus/Flamme_Bleue.png");
+				StdDraw.picture(x, y, "img/Bonus/Flamme_bleu.png");
 				
 				/*StdDraw.setPenColor(46, 95, 61);
 				StdDraw.filledSquare(x,y,0.505);
 				StdDraw.setPenColor(StdDraw.YELLOW);
 				StdDraw.filledSquare(x, y, 0.40);*/
+				break;
+			case CB_FLAMME_JAUNE: 
+				StdDraw.picture(x, y, "img/Bonus/Flamme_jaune.png");
+				break;
+				
+			case CB_FLAMME_ROUGE: 
+				StdDraw.picture(x, y, "img/Bonus/Flamme_Rouge.png");
+				break;
+			case CB_BOMBE_ROUGE: 
+				StdDraw.picture(x, y, "img/Bonus/Bombe_Rouge.png");
 				break;
 				
 			default:
@@ -248,18 +258,24 @@ public class Map {
                     break;
                 case 2:
                   // Flame Jaune
-                	//ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
-                	//majCase(y,x);
+                	
+                	ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
+                	majCase(y,x);
+                	System.out.println("Flamme Jaune");
                     break;
                 case 3:
+                	// Flamme Rouge
+                	
                 	ecrireTerrain(y,x, Map.CB_FLAMME_ROUGE); 
                 	majCase(y,x);
                 	System.out.println("Flamme Rouge");
                 	break;
                 case 4: 
                 	// Bombe rouge
-                	//Map.terrain[y][x]= Map.CB_BOMBE_ROUGE;
-                	//joueur.mp.majCase(y,x);
+                	
+                	ecrireTerrain(y,x, Map.CB_BOMBE_ROUGE); 
+                	majCase(y,x);
+                	System.out.println("Bombe Rouge");
                 	break;
                 	
        
