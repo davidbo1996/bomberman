@@ -92,7 +92,7 @@ private Bomber bonus;
 		
 	}
 	
-	
+	// Des erreirs 
 	public void placerVide(int y, int x)
 	{
 		if (joueur.mp.lireTerrain(y, x) == Map.C_FEU && joueur.mp.lireTerrain(y, x) == Map.C_MUR_DESTRUCTIBLE) {

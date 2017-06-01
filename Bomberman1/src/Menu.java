@@ -18,14 +18,14 @@ public class Menu  {
 
     JFrame frame;
     
-
+    Map mp;
 
     public Menu() {
     	
     	
         frame = new JFrame("BomberMan");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1280, 720);
+        frame.setSize(1050, 950);
        
 
         JPanel panel = new JPanel();
