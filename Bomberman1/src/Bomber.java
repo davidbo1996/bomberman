@@ -1,10 +1,7 @@
-import java.awt.Image;
 import java.awt.event.KeyEvent;
 	import java.awt.event.KeyListener;
 
-import javax.swing.ImageIcon;
-
-import edu.princeton.cs.introcs.StdDraw;
+	import edu.princeton.cs.introcs.StdDraw;
 	
 	//0 = mur indestructible
 	//1 = vide joueur avance
@@ -14,6 +11,8 @@ import edu.princeton.cs.introcs.StdDraw;
 
 public class Bomber {
 	String nom ;
+	private Bomber joueur;
+
 	public int posX = 1; // position sur l'axe des x 
 	public int posY = 1; // position sur l'axe des y 
 	public int initialX = 1;
@@ -27,7 +26,6 @@ public class Bomber {
 	Bombe bombe1 = new Bombe(this);
 	Bombe bombe2 = new Bombe(this);
 	Bombe bombe3 = new Bombe(this);
-	
 	
 	Map mp;
 	
@@ -86,6 +84,7 @@ public void setNombreBombe(int nombreBombe) {
 	public void placerJoueur(int y, int x)
 	{
 		// on efface l'ancienne position 
+		System.out.println("PlacerJoueur Y = "+y+" X = "+x);
 		if (mp.lireTerrain(posY, posX) == Map.C_JOUEUR_BOMBE ) //JOUEUR+BOMBE
 		{
 			mp.ecrireTerrain(posY, posX, Map.C_BOMBE);// on pose la bombe (BOMBE)
@@ -106,11 +105,6 @@ public void setNombreBombe(int nombreBombe) {
 		
 		
 	}
-	/*** Importer les sprites du bomberman ***/
-	
-	
-	/******* Sprite du personnage*******/
-	
 	
 	
 	/****** Test mur ******/
@@ -118,15 +112,13 @@ public void setNombreBombe(int nombreBombe) {
 
 	
 	/***** HAUT ******/
-	public boolean goUp()
+	public void goUp()
 	{		
 		testDeplacementPossible();
 		if (up==true){
 			System.out.println("MouveUP y=" + (posY+1) +" x=" +posX);
 			placerJoueur(posY+1, posX);
-			return true;
 		}
-		return false;
 	}
 	/***** BAS *****/
 	public void goDown()
@@ -184,18 +176,42 @@ public void setNombreBombe(int nombreBombe) {
 		}
 		return b;
 	}
-/** Message défaite**/	
 	
-/*public  void messageDefaite() {
-	if  ( (mp.B1.getNombreVie()==-1) || (mp.B2.getNombreVie()!=0) ) {
-		
-		StdDraw.picture(525, 500, "img/Victoire/VictoireJ1.png");
-		
-		
-	}
-	else if  ( (mp.B1.getNombreVie()!=0) && (mp.B2.getNombreVie()==-1)){
-		StdDraw.picture(525, 500, "img/Victoire/VictoireJ1.png");
-	}
-}*/
+	/*private void bonus(int y,int x) {
+        //Génère un nombre aléatoire entre 0 et 9
+        int r = 0 + (int) (Math.random() * (( 9	- 0) + 1));
+        // Donc on a 20 % de chance d'avoir les bonus
+        if(r >2){ 
+            //Generate Number 1,2,3,4
+            int p = 1 ;
+            	//(int) (Math.random() * ((4 - 1) + 1));
+            switch(p){
+                case 1:
+                    // Flame Bleu
+                	joueur.mp.ecrireTerrain(y,x, Map.CB_FLAMME_BLEUE); 
+                	joueur.mp.majCase(y,x);
+            //System.out.println("Bombe bleu");
+                    break;
+                case 2:
+                  // Flame Jaune
+                	//joueur.mp.ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
+                	//joueur.mp.majCase(y,x);
+                    break;
+                case 3:
+                    // Flame Rouge
+                	//Map.terrain[y][x]= Map.CB_FLAMME_ROUGE;
+                	//joueur.mp.majCase(y,x);
+                	break;
+                case 4: 
+                	// Bombe rouge
+                	//Map.terrain[y][x]= Map.CB_BOMBE_ROUGE;
+                	//joueur.mp.majCase(y,x);
+                	break;
+                	
+       
+            }
+        }
+    }
+*/
 
 }

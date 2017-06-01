@@ -1,5 +1,4 @@
 import java.awt.Image;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +37,7 @@ public class Map {
 	
 
 
-	 Bomber B1 ;
+	Bomber B1 ;
 	Bomber B2 ;	
 
 	private int[][] terrain = new int[][]{
@@ -57,7 +56,7 @@ public class Map {
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
-		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
+		{0,2,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,0},
@@ -68,12 +67,8 @@ public class Map {
 	public Map() {
 		super();
 		initMap();
-		
-		
-		B1 =   new Bomber("Alexis", 1, 1, this);
-		B2 =   new Bomber("David", 15, 19, this);
-		
-		
+		B1 =   new Bomber("alexis", 1, 1, this);
+		B2 =   new Bomber("david", 15, 19, this);
 	}
 
 		/*{
@@ -98,17 +93,14 @@ public class Map {
 
 				
 	public void initMap(){//initialisation de la map 
-		int longueur =50; 
-		int largeur = 50;
 		StdDraw.enableDoubleBuffering();
 		//modification de la taille de la map 
 		
-		StdDraw.setCanvasSize(terrain[0].length*longueur,terrain.length*largeur);
+		StdDraw.setCanvasSize(terrain[0].length*50,terrain.length*50);
 		StdDraw.clear(StdDraw.BLACK);
 		
 		StdDraw.setXscale(-1,   terrain[0].length);
 		StdDraw.setYscale(-1, terrain.length);
-
 		for (int i=0; i<terrain[0].length; i++)
 		{
 			for (int j=0; j<terrain.length;j++)
@@ -119,83 +111,62 @@ public class Map {
 		StdDraw.show();
 				
 	}
-	
+
 	
 	public void majCase(double y, double x) {
 		//System.out.println("DEBUG x=" + x + " Y=" + y);
 		switch(terrain[(int)y][(int) x]) 
 		{
-			case C_MUR: // mur indestructible
+		case C_MUR: // mur indestructible
 			StdDraw.picture(x, y, "img/Bricks/unbrick.png");
 			break;
-				
-				
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledSquare(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.GRAY);
-				StdDraw.filledSquare(x, y, 0.40);
-				break;*/
-			
 			case C_VIDE: // vide
 				StdDraw.picture(x, y, "img/Bricks/floor.png");
-				
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledSquare(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.GREEN);
-				StdDraw.filledSquare(x, y, 0.40);*/
 				break;
 			case C_MUR_DESTRUCTIBLE: // mur destructible
 				StdDraw.picture(x, y, "img/Bricks/brick.png");
-				
-				
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledSquare(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.ORANGE);
-				StdDraw.filledSquare(x, y, 0.40);*/
 				break;
 			case C_BOMBERMAN: // Bomber
 				StdDraw.picture(x, y, "img/BomberMan/character1.png");
 				break;
 			case C_BOMBE: //Bombe
 				StdDraw.picture(x, y, "img/Bombs/bomb.png");
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledCircle(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.RED);
-				StdDraw.filledCircle(x, y, 0.40);*/
 				break;
 			case C_FEU: //explosion
 				StdDraw.picture(x, y, "img/Fire/Flamme.png");
-				
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledCircle(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.ORANGE);
-				StdDraw.filledCircle(x, y, 0.40);*/
 				break;
 			case C_JOUEUR_BOMBE://Bomberman + Bombe
-				StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledCircle(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.BLACK);
-				StdDraw.filledCircle(x, y, 0.40);
+				StdDraw.picture(x, y, "img/Bombs/bomb.png");
 				break;
 			case CB_FLAMME_BLEUE: 
 				StdDraw.picture(x, y, "img/Bonus/Flamme_bleu.png");
-				
-				/*StdDraw.setPenColor(46, 95, 61);
-				StdDraw.filledSquare(x,y,0.505);
-				StdDraw.setPenColor(StdDraw.YELLOW);
-				StdDraw.filledSquare(x, y, 0.40);*/
 				break;
 			case CB_FLAMME_JAUNE: 
 				StdDraw.picture(x, y, "img/Bonus/Flamme_jaune.png");
 				break;
-				
 			case CB_FLAMME_ROUGE: 
 				StdDraw.picture(x, y, "img/Bonus/Flamme_Rouge.png");
 				break;
-			case CB_BOMBE_ROUGE: 
+			case CB_BOMBE_ROUGE:
 				StdDraw.picture(x, y, "img/Bonus/Bombe_Rouge.png");
 				break;
-				
+			case CB_VIE: 
+				StdDraw.picture(x, y, "img/Bonus/Vie.png");
+				break;
+			case CB_SPEED_UP: 
+				StdDraw.picture(x, y, "img/Bonus/SpeedUp.png");
+				break;
+			case CB_SPEED_DOWN: 
+				StdDraw.picture(x, y, "img/Bonus/SpeedDown.png");
+				break;
+			case CB_BOMBE_PLUS: 
+				StdDraw.picture(x, y, "img/Bonus/BombUp.png");
+				break;
+			case CB_BOMBE_MOINS: 
+				StdDraw.picture(x, y, "img/Bonus/BombDown.png");
+				break;
+			
+			
 			default:
 				System.out.println("Probleme terrain Maj case");
 				break;
@@ -213,9 +184,9 @@ public class Map {
 	}
 
 	public int lireTerrain(int y, int x) {
-		if (x >= terrain[0].length || x < 0) {
+		if (!isXinside(x)) {
 			System.out.println("Coordonnée X incorrecte");
-		} else if (y >= terrain.length || y < 0 ) {
+		} else if (!isYinside(y)) {
 			System.out.println("Coordonnée Y incorrecte");
 		} else {
 			//System.out.println("lecture terrain(" + y + "," + x + ")=" + terrain[y][x] );
@@ -225,9 +196,9 @@ public class Map {
 	}
 	
 	public int ecrireTerrain(int y, int x, int val) {
-		if (x >= terrain[0].length || x < 0) {
+		if (!isXinside(x)) {
 			System.out.println("Coordonnée X incorrecte");
-		} else if (y >= terrain.length || y < 0 ) {
+		} else if (!isYinside(y)) {
 			System.out.println("Coordonnée Y incorrecte");
 		} else {
 			//System.out.println("ecriture terrain(" + y + "," + x + ")=" + val );
@@ -237,58 +208,67 @@ public class Map {
 		return -1; // Code de l'erreur
 	}
 	
+	public void gameOver() {
+		StdDraw.picture(100, 200, "img/GameOver/5.jpg");
+	}
 	
+		
+	public boolean isXinside(int x)
+	{
+		if (x >= terrain[0].length || x < 0) 
+		{
+			System.out.println("Coordonnée X incorrecte X = "+ x);
+			return false;
+		} 
+		return true;
+	}
+	public boolean isYinside(int y)
+	{
+		if (y >= terrain.length || y < 0 ) 
+		{
+			System.out.println("Coordonnée Y incorrecte Y = "+ y);
+			return false;
+		}
+		return true;
+	}
 	
-
 	public void bonus(int y,int x) {
         //Génère un nombre aléatoire entre 0 et 5
         int r = 0 + (int) (Math.random() * (( 5	- 0) + 1));
         // Donc on a 20 % de chance d'avoir les bonus
-        if(r <1){ 
+        if(r <6){ 
             //Generate Number 1,2,3,4
-            int p = (int) (Math.random() * ((4 - 1) + 1));
+            int p = 1 ;
+            	//(int) (Math.random() * ((4 - 1) + 1));
             switch(p){
                 case 1:
                     // Flame Bleu
                 	
                 	ecrireTerrain(y,x, Map.CB_FLAMME_BLEUE); 
                 	majCase(y,x);
-                	System.out.println("Flamme bleu");
+                	System.out.println("Bombe bleu");
                 	
                     break;
                 case 2:
                   // Flame Jaune
-                	
-                	ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
-                	majCase(y,x);
-                	System.out.println("Flamme Jaune");
+                	//ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
+                	//majCase(y,x);
                     break;
                 case 3:
-                	// Flamme Rouge
-                	
-                	ecrireTerrain(y,x, Map.CB_FLAMME_ROUGE); 
-                	majCase(y,x);
-                	System.out.println("Flamme Rouge");
+                    // Flame Rouge
+                	//Map.terrain[y][x]= Map.CB_FLAMME_ROUGE;
+                	//joueur.mp.majCase(y,x);
                 	break;
                 case 4: 
                 	// Bombe rouge
-                	
-                	ecrireTerrain(y,x, Map.CB_BOMBE_ROUGE); 
-                	majCase(y,x);
-                	System.out.println("Bombe Rouge");
+                	//Map.terrain[y][x]= Map.CB_BOMBE_ROUGE;
+                	//joueur.mp.majCase(y,x);
                 	break;
-                	
-       
             }
         }
-        
     }
 	
 	
-		
+
+	
 }
-	
-	
-
-	
-

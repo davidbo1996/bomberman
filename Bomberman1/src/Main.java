@@ -1,17 +1,11 @@
 import java.awt.event.KeyEvent;
-import javax.swing.JFrame;
 import edu.princeton.cs.introcs.StdDraw;
-
-
 
 public class Main {
 	
 
 	
 	public static void main(String[] args){
-		 /** Menu du bomberman qui ne fonctionne pas correctement**/
-		Menu menu = new Menu();
-		
 
 		Map mp = new Map();
 	
@@ -57,22 +51,8 @@ public class Main {
 			
 			StdDraw.pause(100);
 			StdDraw.show();	
-			
-			
-				
-			}
-		/*if  ( (mp.B1.getNombreVie()==-1) || (mp.B2.getNombreVie()!=0) ) {
-			
-			StdDraw.picture(525, 500, "img/Victoire/VictoireJ1.png");
-			
-			
 		}
-		else if  ( (mp.B1.getNombreVie()!=0) && (mp.B2.getNombreVie()==-1)){
-			StdDraw.picture(525, 500, "img/Victoire/VictoireJ1.png");
-		}*/
 		
-		}
 		
 	}
-	
-
+}

@@ -14,6 +14,7 @@ private int posx;
 private int posy;
 Timer timer; 
 private int etat=1;
+public int rightCase, leftCase, upCase, downCase;
 private Bomber bonus;
 
 
@@ -35,10 +36,11 @@ private Bomber bonus;
 	        {
 
 	        	{
+	        		
 	        	    Date d = new Date();
 	        		switch (etat) {
 	        		case 1:
-		        		Explosion();
+		        		Explosion(5);
 			        	ajouterBombeInventaire();
 			        	etat = 2;
 			        	System.out.println(d.toString() + "Delais etat2 / restart");
@@ -47,7 +49,7 @@ private Bomber bonus;
 						timer.start();
 	        			break;
 	        		case 2:
-						Explosion2();
+						Explosion2(5);
 						etat=0;
 			        	System.out.println(d.toString()+ "Delais etat0 / stop");
 						timer.stop();
@@ -92,24 +94,17 @@ private Bomber bonus;
 		
 	}
 	
-	// Des erreirs 
+	
 	public void placerVide(int y, int x)
 	{
-		if (joueur.mp.lireTerrain(y, x) == Map.C_FEU && joueur.mp.lireTerrain(y, x) == Map.C_MUR_DESTRUCTIBLE) {
-			joueur.mp.bonus(y, x);
-		}
-				
-				
-				else {
-				joueur.mp.ecrireTerrain(y,x,Map.C_VIDE);
-				joueur.mp.majCase(y,x);
-				}
-				
-		}
+		joueur.mp.ecrireTerrain(y,x,Map.C_VIDE);
+		joueur.mp.majCase(y,x);			
+	}
 	
 	public void placerBonus(int y, int x) {
 		
 		joueur.mp.bonus(y, x);
+		joueur.mp.majCase(y,x);
 	}
 			
 	
@@ -125,178 +120,154 @@ private Bomber bonus;
 		joueur.setNombreBombe(joueur.getNombreBombe()+1);
 		System.out.println("Nombre de bombe"+joueur.getNombreBombe());
 	}
-	public boolean testCaseAccessibleExplosionBombe(int y, int x) {
-		boolean b = true;
-		switch(joueur.mp.lireTerrain(y, x)){
-			case Map.C_MUR:
-				b = false;
-				break;
-			default:
-				b=true;
-				break;
-		}
-		return b;
-	}
-	public void Explosion(/*int portee*/)
-	{
-		etat=2;
-		System.out.println("etat =" + etat);
-		int x=posx;
-		int y = posy;
-/*
-		for (int i=0;i<portee; i++)
-		{
-			if (joueur.mp.lireTerrain(y,x+i)!= Map.C_MUR)
-			{
-				placerFeux(y,x+1); //premier cas
-				if (joueur.mp.lireTerrain(y,x+i+2)!= Map.C_MUR &&joueur.mp.lireTerrain(y,x+i+2) != Map.C_MUR_DESTRUCTIBLE )
-				{ // right 
-					placerFeux(y,x+i+1);
-					//System.out.println("Explosion Right fonctionne");
-				}
-			}
-			if (joueur.mp.lireTerrain(y,x-i) != Map.C_MUR)
-			{
-				placerFeux(y,x-1);
-				if (joueur.mp.lireTerrain(y,x-i-2)!= Map.C_MUR && joueur.mp.lireTerrain(y,x-i-2) != Map.C_MUR_DESTRUCTIBLE  )
-				{ 
-					// left 
-					placerFeux(y,x-i-1);
-					//System.out.println("Explosion Left fonctionne");
-				}
-			}
-			if (joueur.mp.lireTerrain(y-i,x) != Map.C_MUR)
-			{
-				placerFeux(y-1,x);
-				if (joueur.mp.lireTerrain(y-i-2,x)!= Map.C_MUR && joueur.mp.lireTerrain(y-i-2,x) != Map.C_MUR_DESTRUCTIBLE )
-				{ // down 
-					placerFeux(y-i-1,x);
-					//System.out.println("Explosion Down fonctionne");
-				}
-			}
-			if (joueur.mp.lireTerrain(y+i,x) != Map.C_MUR)
-			{
-				placerFeux(y+1,x);
-				if (joueur.mp.lireTerrain(y+i+2,x) != Map.C_MUR && joueur.mp.lireTerrain(y+i+2,x) != Map.C_MUR_DESTRUCTIBLE )
-				{ // up 
-					placerFeux(y+i+1,x);
-					//System.out.println(" Explosion up fonctionne");
-				}
-			}
-		}*/	
-		if (joueur.mp.lireTerrain(y,x+1)!= Map.C_MUR)
-		{
-			placerFeux(y,x+1); //premier cas
-			if (joueur.mp.lireTerrain(y,x+2)!= Map.C_MUR &&joueur.mp.lireTerrain(y,x+2) != Map.C_MUR_DESTRUCTIBLE )
-			{ // right 
-				placerFeux(y,x+2);
-				//System.out.println("Explosion Right fonctionne");
-			}
-		}
-		if (joueur.mp.lireTerrain(y,x-1) != Map.C_MUR)
-		{
-			placerFeux(y,x-1);
-			if (joueur.mp.lireTerrain(y,x-2)!= Map.C_MUR && joueur.mp.lireTerrain(y,x-2) != Map.C_MUR_DESTRUCTIBLE  )
-			{ 
-				// left 
-				placerFeux(y,x-2);
-				//System.out.println("Explosion Left fonctionne");
-			}
-		}
-		if (joueur.mp.lireTerrain(y-1,x) != Map.C_MUR)
-		{
-			placerFeux(y-1,x);
-			if (joueur.mp.lireTerrain(y-2,x)!= Map.C_MUR && joueur.mp.lireTerrain(y-2,x) != Map.C_MUR_DESTRUCTIBLE )
-			{ // down 
-				placerFeux(y-2,x);
-				//System.out.println("Explosion Down fonctionne");
-			}
-		}
-		if (joueur.mp.lireTerrain(y+1,x) != Map.C_MUR)
-		{
-			placerFeux(y+1,x);
-			if (joueur.mp.lireTerrain(y+2,x) != Map.C_MUR && joueur.mp.lireTerrain(y+2,x) != Map.C_MUR_DESTRUCTIBLE )
-			{ // up 
-				placerFeux(y+2,x);
-				//System.out.println(" Explosion up fonctionne");
-			}
-		}
-		
-		
-		//On verifie que pour chaque cas 
 
-		killJoueur();
+
+	public void testCasePossible(int portee){							
+		upCase = downCase = leftCase = rightCase = 0;
+		int x = posx;
+		int y = posy;
+		int i = 1;
+		boolean sortir= false;
+		while (i<=portee && !sortir) 
+		{		
+			switch(joueur.mp.lireTerrain(y+i, x))
+			{
+				case Map.C_VIDE:
+					upCase++;
+					break;
+				case Map.C_MUR_DESTRUCTIBLE:
+					upCase++;
+					sortir=true;
+					break;
+				case Map.C_MUR:
+					sortir=true;
+					break;
+				default:
+					break;
+			}
+			i++;
+		}
+		i = 1;
+		sortir= false;
+		while (i<=portee && !sortir) 
+		{		
+			switch(joueur.mp.lireTerrain(y-i, x))
+			{
+				case Map.C_VIDE:
+					downCase++;
+					break;
+				case Map.C_MUR_DESTRUCTIBLE:
+					downCase++;
+					sortir=true;
+					break;
+				case Map.C_MUR:
+					sortir=true;
+					break;
+				default:
+					break;
+			}
+			i++;
+		}
+		i = 1;
+		sortir= false;
+		while (i<=portee && !sortir) 
+		{		
+			switch(joueur.mp.lireTerrain(y, x+i))
+			{
+				case Map.C_VIDE:
+					rightCase++;
+					break;
+				case Map.C_MUR_DESTRUCTIBLE:
+					rightCase++;
+					sortir=true;
+					break;
+				case Map.C_MUR:
+					sortir=true;
+					break;
+				default:
+					break;
+			}
+			i++;
+		}
+		i = 1;
+		sortir= false;
+		while (i<=portee && !sortir) 
+		{		
+			switch(joueur.mp.lireTerrain(y, x-i))
+			{
+				case Map.C_VIDE:
+					leftCase++;
+					break;
+				case Map.C_MUR_DESTRUCTIBLE:
+					leftCase++;
+					sortir=true;
+					break;
+				case Map.C_MUR:
+					sortir=true;
+					break;
+				default:
+					break;
+			}
+			i++;
+		}
+
+		
 	}
 	
-	public void Explosion2()
+		
+	public void Explosion(int portee)
 	{
 		int x = posx;
 		int y = posy;
-		//Au niveau de la bombe
-		if (joueur.mp.lireTerrain(y,x) == Map.C_BOMBE )
+		testCasePossible(portee);	
+		for (int i=1; i<=portee;i++)
 		{
-			placerVide(y,x);
-		}
-		if (joueur.mp.lireTerrain(y,x+1) == Map.C_FEU   )
-		{ // right 
-			placerVide(y,x+1);
-		}
-		if (joueur.mp.lireTerrain(y,x-1) ==Map.C_FEU)
-		{ 
-			// left 
-			placerVide(y,x-1);
-		}
-		if (joueur.mp.lireTerrain(y-1,x) == Map.C_FEU)
-		{ // down 
-			placerVide(y-1,x);
-		}
-		if (joueur.mp.lireTerrain(y+1,x) == Map.C_FEU)
-		{ // up 
-			placerVide(y+1,x);
-		}
-		
-		/*** 2 ieme case à vérifier ****/
-		//On verifie que pour chaque cas 
-		if (joueur.mp.lireTerrain(y,x+1) != Map.C_MUR )
-		{
-			if (joueur.mp.lireTerrain(y,x+2) == Map.C_FEU)
-			{ // right 
-				placerVide(y,x+2);
-				//System.out.println("Explosion Right fonctionne");
-			}
-		}
 
-		if (joueur.mp.lireTerrain(y,x-1)!= Map.C_MUR)
-		{
-			if (joueur.mp.lireTerrain(y,x-2) == Map.C_FEU)
-			{ 
-				// left 
-				placerVide(y,x-2);
-				//System.out.println("Explosion Left fonctionne");
+			if (i <=rightCase)
+			{
+				placerFeux(y,x+i);
+			}
+			if (i <=leftCase)
+			{
+				placerFeux(y,x-i);
+			}			
+			if (i <=upCase)
+			{
+				placerFeux(y+i,x);
+			}			
+			if (i <=downCase)
+			{
+				placerFeux(y-i,x);
 			}
 		}
+		killJoueur();
+	}
 
-	
-		if (joueur.mp.lireTerrain(y-1,x) != Map.C_MUR )
+	public void Explosion2(int portee)
+	{
+		int x = posx;
+		int y = posy;
+		for (int i=0; i<=portee;i++)
 		{
-			if (joueur.mp.lireTerrain(y-2,x) == Map.C_FEU)
-			{ // down 
-				
-				placerVide(y-2,x);
-				//System.out.println("Explosion Down fonctionne");
+
+			if (i <=rightCase)
+			{
+				placerVide(y,x+i);
 			}
+			if (i <=leftCase)
+			{
+				placerVide(y,x-i);
+			}			
+			if (i <=upCase)
+			{
+				placerVide(y+i,x);
+			}			
+			if (i <=downCase)
+			{
+				placerVide(y-i,x);
+			}
+
 		}
-	
-		if (joueur.mp.lireTerrain(y+1,x) != Map.C_MUR)
-		{
-			if (joueur.mp.lireTerrain(y+2,x) == Map.C_FEU)
-			{ // up 
-				placerVide(y+2,x);
-				joueur.mp.bonus(y, x);
-				//System.out.println(" Explosion up fonctionne");
-			}	
-		}
-	
 	}
 	
 	
@@ -308,7 +279,6 @@ private Bomber bonus;
 			joueur.setNombreVie(joueur.getNombreVie()-1);// on lui enleve une vie 
 			System.out.println(joueur.getNombreVie()-1);
 			joueur.placerInitialJoueur();
-			
 		}
 		else
 		{
