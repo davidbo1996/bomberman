@@ -37,6 +37,9 @@ public class Bomber {
 		initialX = posX = x;
 		initialY = posY = y;
 		placerJoueur(y,x);
+		System.out.println("Le joueur à NBVIE= "+ getNombreVie());
+		BonusVie();
+		System.out.println("Le joueur à NBVIE= "+ getNombreVie());
 	}
 	
 	public void placerInitialJoueur(){
@@ -177,41 +180,56 @@ public void setNombreBombe(int nombreBombe) {
 		return b;
 	}
 	
-	/*private void bonus(int y,int x) {
-        //Génère un nombre aléatoire entre 0 et 9
-        int r = 0 + (int) (Math.random() * (( 9	- 0) + 1));
-        // Donc on a 20 % de chance d'avoir les bonus
-        if(r >2){ 
-            //Generate Number 1,2,3,4
-            int p = 1 ;
-            	//(int) (Math.random() * ((4 - 1) + 1));
-            switch(p){
-                case 1:
-                    // Flame Bleu
-                	joueur.mp.ecrireTerrain(y,x, Map.CB_FLAMME_BLEUE); 
-                	joueur.mp.majCase(y,x);
-            //System.out.println("Bombe bleu");
-                    break;
-                case 2:
-                  // Flame Jaune
-                	//joueur.mp.ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
-                	//joueur.mp.majCase(y,x);
-                    break;
-                case 3:
-                    // Flame Rouge
-                	//Map.terrain[y][x]= Map.CB_FLAMME_ROUGE;
-                	//joueur.mp.majCase(y,x);
-                	break;
-                case 4: 
-                	// Bombe rouge
-                	//Map.terrain[y][x]= Map.CB_BOMBE_ROUGE;
-                	//joueur.mp.majCase(y,x);
-                	break;
-                	
-       
-            }
-        }
-    }
-*/
+	/** Bonus du personnage**/
+	
+	public void testCaseBonus(int y, int x) {
+		switch(mp.lireTerrain(y, x)){
+			case Map.CB_VIE:
+				BonusVie();
+				//placerVide(y,x);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	
+	public void BonusVie() 
+	{
+		setNombreVie(getNombreVie()+1);
+		System.out.println("Vous avez "+ getNombreVie()+" vie");	
+	}
+	
+	public void BonusSpeedUp()
+	{
+		StdDraw.pause(20);	
+	}
+	public void BonusSpeedDown()
+	{
+		StdDraw.pause(200);
+	}
+	public void BonusBombePlus()
+	{
+		if (getNombreBombe() < 7)
+		{
+			setNombreBombe(getNombreBombe()+2);
+			System.out.println("Vous avez "+ getNombreBombe()+" bombes" );
+		}
+	}
+	public void BonusBombeMoins(){
+		if (getNombreBombe() >=4){
+			
+			setNombreBombe(getNombreBombe()-2);
+			System.out.println("Vous avez "+ getNombreBombe()+" bombes" );
+		}
+		else if(getNombreBombe()==3)
+		{
+			setNombreBombe(getNombreBombe()-1);
+			System.out.println("Vous avez "+ getNombreBombe()+" bombes" );
+		}	
+	}
+	
+	
+
 
 }

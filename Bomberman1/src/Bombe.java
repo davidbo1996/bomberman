@@ -16,12 +16,18 @@ Timer timer;
 private int etat=1;
 public int rightCase, leftCase, upCase, downCase;
 private Bomber bonus;
+private int portee;
+
+
 
 
 	public Bombe(Bomber b) {
 	super();
 	joueur = b;
 	etat=0;
+	this.portee=2;
+	
+
 	
     // Création et lancement du timer
 }
@@ -40,7 +46,7 @@ private Bomber bonus;
 	        	    Date d = new Date();
 	        		switch (etat) {
 	        		case 1:
-		        		Explosion(5);
+		        		Explosion(getPortee());
 			        	ajouterBombeInventaire();
 			        	etat = 2;
 			        	System.out.println(d.toString() + "Delais etat2 / restart");
@@ -49,7 +55,7 @@ private Bomber bonus;
 						timer.start();
 	        			break;
 	        		case 2:
-						Explosion2(5);
+						Explosion2(getPortee());
 						etat=0;
 			        	System.out.println(d.toString()+ "Delais etat0 / stop");
 						timer.stop();
@@ -122,12 +128,13 @@ private Bomber bonus;
 	}
 
 
-	public void testCasePossible(int portee){							
+	public void testCasePossible(int portee)
+	{							
 		upCase = downCase = leftCase = rightCase = 0;
 		int x = posx;
 		int y = posy;
 		int i = 1;
-		boolean sortir= false;
+		boolean sortir=false;
 		while (i<=portee && !sortir) 
 		{		
 			switch(joueur.mp.lireTerrain(y+i, x))
@@ -138,6 +145,7 @@ private Bomber bonus;
 				case Map.C_MUR_DESTRUCTIBLE:
 					upCase++;
 					sortir=true;
+					//sortir= BonusBombeRouge();
 					break;
 				case Map.C_MUR:
 					sortir=true;
@@ -159,6 +167,7 @@ private Bomber bonus;
 				case Map.C_MUR_DESTRUCTIBLE:
 					downCase++;
 					sortir=true;
+					//sortir= BonusBombeRouge();
 					break;
 				case Map.C_MUR:
 					sortir=true;
@@ -180,6 +189,7 @@ private Bomber bonus;
 				case Map.C_MUR_DESTRUCTIBLE:
 					rightCase++;
 					sortir=true;
+					//sortir= BonusBombeRouge();
 					break;
 				case Map.C_MUR:
 					sortir=true;
@@ -201,6 +211,7 @@ private Bomber bonus;
 				case Map.C_MUR_DESTRUCTIBLE:
 					leftCase++;
 					sortir=true;
+					//sortir= BonusBombeRouge();
 					break;
 				case Map.C_MUR:
 					sortir=true;
@@ -277,7 +288,7 @@ private Bomber bonus;
 		{
 			System.out.println("explosion vraie Boum Joueur tué :( ");
 			joueur.setNombreVie(joueur.getNombreVie()-1);// on lui enleve une vie 
-			System.out.println(joueur.getNombreVie()-1);
+			System.out.println("Il lui reste NombreVie = " + (joueur.getNombreVie()-1));
 			joueur.placerInitialJoueur();
 		}
 		else
@@ -299,39 +310,45 @@ private Bomber bonus;
 	}
 	
 	// Supprimer les bonus 
-		public void Bonus() {
-			int x = posx; 
-			int y = posy;
+		public void Bonus(int y, int x)
+		{
 			// Si le joueur est sur la case du bonus, on supprime le bonus et on le transforme en case vide
-			if(joueur.mp.lireTerrain(y,x) == Map.CB_FLAMME_BLEUE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) {
+			if(joueur.mp.lireTerrain(y,x) == Map.CB_VIE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) 
+			{
+				joueur.BonusVie();
 				placerVide(y,x);
-			}
-			
-			if(joueur.mp.lireTerrain(y,x) == Map.CB_FLAMME_JAUNE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) {
-				placerVide(y,x);
-			}
-			
-			if(joueur.mp.lireTerrain(y,x) == Map.CB_FLAMME_ROUGE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) {
-				placerVide(y,x);
-			}
-			if(joueur.mp.lireTerrain(y,x) == Map.CB_BOMBE_ROUGE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) {
-				placerVide(y,x);
-			}
-			
-		}
-		
-		// Créer les bonus de la bombe
-		
-		public void Flamme_bleu(){
-			
-		}
-		
-		public void Flamme_jouge(){
-			
-		}
-		
-		public void Flamme_jaune() {
-			
-		}
 
+			}
+		}
+	public int getPortee() 
+	{
+		return portee;
+	}
+	public void setPortee(int portee) 
+	{
+		this.portee = portee;
+	}
+	public void BonusFlammeBleue()
+	{
+		if (getPortee()>1)
+		{
+			setPortee(getPortee()-1);
+		}
+	}
+	public void BonusFlammeJaune()
+	{
+		if (getPortee()<10)
+		{
+			setPortee(getPortee()+1);
+		}
+	}
+	public void BonusFlammeRouge()
+	{
+		this.portee=10;
+	}
+	public boolean BonusBombeRouge()
+	{
+		return false; 
+	}
+		
 }

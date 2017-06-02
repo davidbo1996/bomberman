@@ -47,7 +47,7 @@ public class Map {
 		//  00 xxxxxxxxx  20
 
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
+		{0,1,1,14,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,1,0,1,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
@@ -61,7 +61,7 @@ public class Map {
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,1,0,1,0},
-		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,0},
+		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,1,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};	
 		
 	public Map() {
@@ -237,9 +237,8 @@ public class Map {
         int r = 0 + (int) (Math.random() * (( 5	- 0) + 1));
         // Donc on a 20 % de chance d'avoir les bonus
         if(r <6){ 
-            //Generate Number 1,2,3,4
-            int p = 1 ;
-            	//(int) (Math.random() * ((4 - 1) + 1));
+            //Genere un nombre entre 1 et 8
+            int p = 0 +(int) (Math.random() * ((8 - 1) + 1));
             switch(p){
                 case 1:
                     // Flame Bleu
@@ -251,19 +250,58 @@ public class Map {
                     break;
                 case 2:
                   // Flame Jaune
-                	//ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
-                	//majCase(y,x);
+                	ecrireTerrain(y,x, Map.CB_FLAMME_JAUNE);
+                	majCase(y,x);
+                	System.out.println("Flamme Jaune");
                     break;
                 case 3:
                     // Flame Rouge
-                	//Map.terrain[y][x]= Map.CB_FLAMME_ROUGE;
-                	//joueur.mp.majCase(y,x);
+                	ecrireTerrain(y,x,Map.CB_FLAMME_ROUGE);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
                 	break;
                 case 4: 
                 	// Bombe rouge
-                	//Map.terrain[y][x]= Map.CB_BOMBE_ROUGE;
-                	//joueur.mp.majCase(y,x);
+                	ecrireTerrain(y,x,Map.CB_BOMBE_ROUGE);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
                 	break;
+                case 5: 
+                	//Vie
+                	ecrireTerrain(y,x,Map.CB_VIE);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
+                	break; 
+                	
+                case 6:
+                	// Speed Up 
+                	ecrireTerrain(y,x,Map.CB_SPEED_UP);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
+                	
+                	break; 
+                case 7:
+                	// Speed Down 
+                	ecrireTerrain(y,x,Map.CB_SPEED_DOWN);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
+                	break; 
+                	
+                case 8: 
+                	//Bombe Plus
+                	ecrireTerrain(y,x,Map.CB_BOMBE_PLUS);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
+                	break; 
+                	
+                case 9:
+                	//Bombe moins
+                	ecrireTerrain(y,x,Map.CB_BOMBE_MOINS);
+                	majCase(y,x);
+                	System.out.println("Flamme Rouge");
+                	break;
+                
+                	
             }
         }
     }

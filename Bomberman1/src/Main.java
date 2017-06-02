@@ -39,7 +39,7 @@ public class Main {
 				mp.B2.goDown();
 			}
 			else if (StdDraw.isKeyPressed(KeyEvent.VK_LEFT)) {
-				mp.B2.goLeft(); 
+				mp.B2.goLeft();
 			}
 			else if (StdDraw.isKeyPressed(KeyEvent.VK_UP)) {
 				mp.B2.goUp();  
@@ -50,6 +50,8 @@ public class Main {
 			}
 			
 			StdDraw.pause(100);
+			
+			//mp.B2.BonusSpeedDown();
 			StdDraw.show();	
 		}
 		
