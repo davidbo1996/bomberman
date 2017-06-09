@@ -15,23 +15,67 @@ private int posy;
 Timer timer; 
 private int etat=1;
 public int rightCase, leftCase, upCase, downCase;
-private Bomber bonus;
 private int portee;
+private boolean sortir,bombeRouge; 
 
 
-
-
-	public Bombe(Bomber b) {
+	/*** CONSTRUCTEUR ***/
+	public Bombe(Bomber b)
+	{
 	super();
 	joueur = b;
 	etat=0;
 	this.portee=2;
-	
-
-	
+	this.sortir=false;
+	this.bombeRouge=true;
     // Création et lancement du timer
-}
-	  private Timer createTimer()
+	}
+	
+	/*** GETTERS ***/
+	public int getPosx() 
+	{
+		return posx;
+	}
+	public int getPosy() 
+	{
+		return posy;
+	}
+	public int getPortee() 
+	{
+		return portee;
+	}
+	public boolean isSortir()
+	{
+		return sortir;
+	}
+	public boolean isbombeRouge() {
+		return bombeRouge;
+	}
+
+
+	/*** SETTERS ***/
+	public void setPosx(int posx) 
+	{
+		this.posx = joueur.posX;
+	}
+	public void setPosy(int posy) 
+	{
+		this.posy = joueur.posY;
+	}
+	public void setPortee(int portee) 
+	{
+		this.portee = portee;
+	}
+	public void setSortir(boolean sortir) 
+	{
+		this.sortir = sortir;
+	}
+	public void setbombeRouge(boolean bombeRouge) {
+		this.bombeRouge = bombeRouge;
+	}
+	
+	/*** TIMER ***/
+	private Timer createTimer()
 	  {
 	    // Création d'une instance de listener 
 	    // associée au timer
@@ -40,9 +84,7 @@ private int portee;
 	        // Méthode appelée à chaque tic du timer
 	        public void actionPerformed (ActionEvent event)
 	        {
-
-	        	{
-	        		
+	        	{       		
 	        	    Date d = new Date();
 	        		switch (etat) {
 	        		case 1:
@@ -86,39 +128,34 @@ private int portee;
 		placerBomberEtBombe(posy,posx);
 	}
 	
+	/***   PLACER OBJETS DANS MAP ***/
 	public void placerBomberEtBombe(int y, int x)
 	{
 		joueur.mp.ecrireTerrain(y, x, Map.C_JOUEUR_BOMBE);
 		joueur.mp.majCase(y,x);
 		System.out.println("placer J+B " + y + " " + x);
 	}
-	
 	public void placerFeux(int y, int x)
 	{
 		joueur.mp.ecrireTerrain(y,x,Map.C_FEU);
 		joueur.mp.majCase(y,x);
-		
 	}
-	
-	
 	public void placerVide(int y, int x)
 	{
 		joueur.mp.ecrireTerrain(y,x,Map.C_VIDE);
 		joueur.mp.majCase(y,x);			
 	}
-	
-	public void placerBonus(int y, int x) {
-		
+	public void placerBonus(int y, int x)
+	{	
 		joueur.mp.bonus(y, x);
 		joueur.mp.majCase(y,x);
 	}
 			
-	
+	/*** INVENTAIRE BOMBE ***/
 	public void enleverBombeInventaire() 
 	{
 		joueur.setNombreBombe(joueur.getNombreBombe()-1);
-		System.out.println("Nombre de bombe"+joueur.getNombreBombe());
-		
+		System.out.println("Nombre de bombe"+joueur.getNombreBombe());	
 	}
 	
 	public void ajouterBombeInventaire()
@@ -134,21 +171,23 @@ private int portee;
 		int x = posx;
 		int y = posy;
 		int i = 1;
-		boolean sortir=false;
-		while (i<=portee && !sortir) 
+		this.sortir=false;
+		
+		while (i<=portee && !isSortir()) 
 		{		
 			switch(joueur.mp.lireTerrain(y+i, x))
 			{
 				case Map.C_VIDE:
+				case Map.C_BOMBERMAN:
 					upCase++;
 					break;
 				case Map.C_MUR_DESTRUCTIBLE:
 					upCase++;
-					sortir=true;
-					//sortir= BonusBombeRouge();
+					joueur.mp.bonus(y+i,x);
+					setSortir(isbombeRouge());
 					break;
 				case Map.C_MUR:
-					sortir=true;
+					setSortir(true);
 					break;
 				default:
 					break;
@@ -156,21 +195,22 @@ private int portee;
 			i++;
 		}
 		i = 1;
-		sortir= false;
-		while (i<=portee && !sortir) 
+		setSortir(false);
+		while (i<=portee && !isSortir()) 
 		{		
 			switch(joueur.mp.lireTerrain(y-i, x))
 			{
 				case Map.C_VIDE:
+				case Map.C_BOMBERMAN:
 					downCase++;
 					break;
 				case Map.C_MUR_DESTRUCTIBLE:
 					downCase++;
-					sortir=true;
-					//sortir= BonusBombeRouge();
+					joueur.mp.bonus(y-i,x);
+					setSortir(isbombeRouge());
 					break;
 				case Map.C_MUR:
-					sortir=true;
+					setSortir(true);
 					break;
 				default:
 					break;
@@ -178,21 +218,22 @@ private int portee;
 			i++;
 		}
 		i = 1;
-		sortir= false;
-		while (i<=portee && !sortir) 
+		setSortir(false);
+		while (i<=portee && !isSortir()) 
 		{		
 			switch(joueur.mp.lireTerrain(y, x+i))
 			{
 				case Map.C_VIDE:
+				case Map.C_BOMBERMAN:
 					rightCase++;
 					break;
 				case Map.C_MUR_DESTRUCTIBLE:
 					rightCase++;
-					sortir=true;
-					//sortir= BonusBombeRouge();
+					joueur.mp.bonus(y,x+i);
+					setSortir(isbombeRouge());
 					break;
 				case Map.C_MUR:
-					sortir=true;
+					setSortir(true);
 					break;
 				default:
 					break;
@@ -200,58 +241,72 @@ private int portee;
 			i++;
 		}
 		i = 1;
-		sortir= false;
-		while (i<=portee && !sortir) 
+		setSortir(false);
+		while (i<=portee && !isSortir()) 
 		{		
 			switch(joueur.mp.lireTerrain(y, x-i))
 			{
 				case Map.C_VIDE:
+				case Map.C_BOMBERMAN:
 					leftCase++;
 					break;
 				case Map.C_MUR_DESTRUCTIBLE:
 					leftCase++;
-					sortir=true;
-					//sortir= BonusBombeRouge();
+					joueur.mp.bonus(y,x-i);
+					setSortir(isbombeRouge());
 					break;
 				case Map.C_MUR:
-					sortir=true;
+					setSortir(true);
 					break;
 				default:
 					break;
 			}
+			
 			i++;
-		}
-
-		
+		}	
 	}
 	
-		
+
 	public void Explosion(int portee)
 	{
 		int x = posx;
 		int y = posy;
+		
+		if (!joueur.mp.isBonus(y,x)) { 
+			placerFeux(y,x);
+		}
 		testCasePossible(portee);	
 		for (int i=1; i<=portee;i++)
 		{
 
 			if (i <=rightCase)
 			{
-				placerFeux(y,x+i);
+				if (!joueur.mp.isBonus(y,x+i)) { 
+					placerFeux(y,x+i);
+				}
 			}
 			if (i <=leftCase)
 			{
+				if (!joueur.mp.isBonus(y,x-i)) 
+				{ 
 				placerFeux(y,x-i);
+				}
 			}			
 			if (i <=upCase)
 			{
+				if (!joueur.mp.isBonus(y+i,x)) 
+				{ 
 				placerFeux(y+i,x);
+				}
 			}			
 			if (i <=downCase)
 			{
+				if (!joueur.mp.isBonus(y-i,x)) 
+				{ 
 				placerFeux(y-i,x);
+				}
 			}
 		}
-		killJoueur();
 	}
 
 	public void Explosion2(int portee)
@@ -263,71 +318,39 @@ private int portee;
 
 			if (i <=rightCase)
 			{
-				placerVide(y,x+i);
+				if (!joueur.mp.isBonus(y,x+i)) { 
+					placerVide(y,x+i);
+				}
 			}
 			if (i <=leftCase)
 			{
-				placerVide(y,x-i);
+				if (!joueur.mp.isBonus(y,x-i)) 
+				{ 
+					placerVide(y,x-i);
+				}
+
 			}			
 			if (i <=upCase)
 			{
+				if (!joueur.mp.isBonus(y+i,x)) 
+				{
 				placerVide(y+i,x);
+				}
 			}			
 			if (i <=downCase)
 			{
+				if (!joueur.mp.isBonus(y-i,x)) 
+				{
 				placerVide(y-i,x);
+				}
 			}
 
 		}
 	}
 	
-	
-	public void killJoueur()
-	{
-		if (joueur.mp.lireTerrain(joueur.posY,joueur.posX) == Map.C_FEU) // Si le personnage se trouve la case d'une explosion 
-		{
-			System.out.println("explosion vraie Boum Joueur tué :( ");
-			joueur.setNombreVie(joueur.getNombreVie()-1);// on lui enleve une vie 
-			System.out.println("Il lui reste NombreVie = " + (joueur.getNombreVie()-1));
-			joueur.placerInitialJoueur();
-		}
-		else
-		{
-			System.out.println("joueur toujours vivant :) ");
-		}
-	}
-	public int getPosx() {
-		return posx;
-	}
-	public void setPosx(int posx) {
-		this.posx = joueur.posX;
-	}
-	public int getPosy() {
-		return posy;
-	}
-	public void setPosy(int posy) {
-		this.posy = joueur.posY;
-	}
-	
-	// Supprimer les bonus 
-		public void Bonus(int y, int x)
-		{
-			// Si le joueur est sur la case du bonus, on supprime le bonus et on le transforme en case vide
-			if(joueur.mp.lireTerrain(y,x) == Map.CB_VIE && joueur.mp.lireTerrain(y,x) == Map.C_BOMBERMAN) 
-			{
-				joueur.BonusVie();
-				placerVide(y,x);
 
-			}
-		}
-	public int getPortee() 
-	{
-		return portee;
-	}
-	public void setPortee(int portee) 
-	{
-		this.portee = portee;
-	}
+		
+	/*** METHODE BONUS BOMBE ***/
 	public void BonusFlammeBleue()
 	{
 		if (getPortee()>1)
@@ -335,7 +358,7 @@ private int portee;
 			setPortee(getPortee()-1);
 		}
 	}
-	public void BonusFlammeJaune()
+	public void bonusFlammeJaune()
 	{
 		if (getPortee()<10)
 		{
@@ -346,9 +369,9 @@ private int portee;
 	{
 		this.portee=10;
 	}
-	public boolean BonusBombeRouge()
+	public void BonusBombeRouge()
 	{
-		return false; 
+		setbombeRouge(false); 
 	}
 		
 }

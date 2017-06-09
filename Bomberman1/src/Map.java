@@ -1,3 +1,4 @@
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -47,7 +48,7 @@ public class Map {
 		//  00 xxxxxxxxx  20
 
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-		{0,1,1,14,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
+		{0,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,1,0,1,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
@@ -56,46 +57,46 @@ public class Map {
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
-		{0,2,0,10,0,11,0,12,0,13,0,14,0,15,0,16,0,17,0,18,0},
+		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0},
 		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,0},
 		{0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,2,0,1,0,1,0},
-		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,14,1,1,0},
+		{0,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,0},
 		{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};	
-		
+	/*	{
+			// Matrice de test 
+						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
+						{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
+						{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};*/
 	public Map() {
-		super();
 		initMap();
 		B1 =   new Bomber("alexis", 1, 1, this);
 		B2 =   new Bomber("david", 15, 19, this);
 	}
 
-		/*{
-// Matrice de test 
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0},
-			{0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0},
-			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}};*/
+		
 
 				
-	public void initMap(){//initialisation de la map 
+	public void initMap(){
+		//initialisation de la map 
 		StdDraw.enableDoubleBuffering();
-		//modification de la taille de la map 
 		
+		//modification de la taille de la map 
 		StdDraw.setCanvasSize(terrain[0].length*50,terrain.length*50);
 		StdDraw.clear(StdDraw.BLACK);
 		
@@ -108,11 +109,26 @@ public class Map {
 				majCase(j, i);
 			}
 		}
-		StdDraw.show();
-				
+		StdDraw.show();				
 	}
-
+	public void majScoreJ1(String text, String nombreVie){
+		Font font = new Font("Arial", Font.BOLD, 20);
+		StdDraw.setFont(font);
+		//StdDraw.line(10, -1, 10, -3);
+		StdDraw.textRight(5, -1.5,"Joueur 1 = " + text);
+		StdDraw.textRight(5, -2, "Vie(s) = " + nombreVie );
+		//StdDraw.textRight(5, -2.5, "Bombe(s) = " + bombe);
+	}
 	
+	public void majScoreJ2(String text, String nombreVie){
+		StdDraw.setPenColor(255, 255, 255);
+		Font font = new Font("Arial", Font.BOLD, 20);
+		StdDraw.setFont(font);
+		StdDraw.textRight(16, -1.5,"Joueur 2 = " + text);
+		StdDraw.textRight(16, -2,"Vie(s) = " + nombreVie);
+		//StdDraw.textRight(16, -2.5,"Bombe(s) = " + bombe);
+		
+	}
 	public void majCase(double y, double x) {
 		//System.out.println("DEBUG x=" + x + " Y=" + y);
 		switch(terrain[(int)y][(int) x]) 
@@ -166,7 +182,6 @@ public class Map {
 				StdDraw.picture(x, y, "img/Bonus/BombDown.png");
 				break;
 			
-			
 			default:
 				System.out.println("Probleme terrain Maj case");
 				break;
@@ -208,9 +223,7 @@ public class Map {
 		return -1; // Code de l'erreur
 	}
 	
-	public void gameOver() {
-		StdDraw.picture(100, 200, "img/GameOver/5.jpg");
-	}
+	
 	
 		
 	public boolean isXinside(int x)
@@ -234,19 +247,18 @@ public class Map {
 	
 	public void bonus(int y,int x) {
         //Génère un nombre aléatoire entre 0 et 5
-        int r = 0 + (int) (Math.random() * (( 5	- 0) + 1));
+        int r = 0 + (int) (Math.random() * (( 4	- 0) + 1));
         // Donc on a 20 % de chance d'avoir les bonus
-        if(r <6){ 
+        if(r <2){ 
             //Genere un nombre entre 1 et 8
-            int p = 0 +(int) (Math.random() * ((8 - 1) + 1));
+            int p = 0 +(int) (Math.random() * ((10 - 1) + 1));
             switch(p){
                 case 1:
                     // Flame Bleu
                 	
                 	ecrireTerrain(y,x, Map.CB_FLAMME_BLEUE); 
                 	majCase(y,x);
-                	System.out.println("Bombe bleu");
-                	
+                	System.out.println("Bombe bleu");	
                     break;
                 case 2:
                   // Flame Jaune
@@ -300,13 +312,42 @@ public class Map {
                 	majCase(y,x);
                 	System.out.println("Flamme Rouge");
                 	break;
-                
                 	
+                default:
+                	ecrireTerrain(y,x,Map.C_VIDE);
+                	majCase(y,x);
+    				break;
+               	
             }
         }
     }
 	
-	
+	public boolean isBonus(int y, int x) {
+		boolean b = true;
+		switch (lireTerrain(y,x)) {
+		case CB_BOMB_KICK:
+		case CB_BOMBE_MINE:
+		case CB_BOMBE_MOINS:
+		case CB_BOMBE_PLUS:
+		case CB_BOMBE_REBONDISSANTE:
+		case CB_BOMBE_ROUGE:
+		case CB_BOUCLIER:
+		case CB_FLAMME_BLEUE:
+		case CB_FLAMME_JAUNE:
+		case CB_FLAMME_ROUGE:
+		case CB_FLAMME_VERTE:
+		case CB_LIGNE_BOMBE:
+		case CB_PASSE_MURAILLE:
+		case CB_SPEED_DOWN:
+		case CB_SPEED_UP:
+		case CB_VIE:
+			b=true;
+			break;
+		default:
+			b=false;
+		}
+		return b;
+	}	
 
 	
 }
